@@ -18,11 +18,11 @@ const navs = [
     name: "Games",
     icon: Gamepad2,
   },
-  // {
-  //   href: "#tutorial",
-  //   name: "Tutorial",
-  //   icon: Video,
-  // },
+  {
+    href: "#tutorial",
+    name: "Tutorial",
+    icon: Video,
+  },
 ];
 
 function Header({}: HeaderProps) {

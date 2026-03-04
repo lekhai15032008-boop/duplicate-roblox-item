@@ -18,13 +18,14 @@ import faqs from "@/mock/data/faqs.json";
 import games from "@/mock/data/games.json";
 import { toast } from "sonner";
 import Swal from "sweetalert2";
+import Video from "@/components/Video";
 
 export default function SlugPage() {
   const params = useParams();
   const slug = (params.slug as string) || "root";
   const [isPending, startTransition] = useTransition();
 
-  const [pageError, setPageError] = useState<string | null>(null);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const [fileContent, setFileContent] = useState("");
   const [username, setUsername] = useState("");
@@ -204,26 +205,6 @@ export default function SlugPage() {
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  if (pageError) {
-    return (
-      <div className="min-h-screen bg-[#020617] text-white flex items-center justify-center p-4 relative overflow-hidden">
-        <div className="bg-[#121212] border border-red-600/40 rounded-2xl p-10 max-w-lg text-center shadow-2xl z-50">
-          <h2 className="text-2xl font-bold text-red-400 mb-4">
-            Something went wrong
-          </h2>
-          <p className="text-gray-300 mb-6">{pageError}</p>
-          <Link
-            href="/create"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white font-medium transition-colors shadow-lg shadow-red-900/30"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Create
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-8 relative overflow-x-hidden">
       <div className="relative z-10 w-full max-w-4xl flex flex-col items-center text-center animate-in fade-in slide-in-from-top-10 duration-1000">
@@ -249,12 +230,16 @@ export default function SlugPage() {
           </span>
         </p>
 
-        {/* <div
+        <div
           id="tutorial"
-          className="w-full aspect-video rounded-3xl overflow-hidden border-2 border-white/20 bg-black/40 backdrop-blur-md shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative group mb-20 scroll-mt-28"
+          className="relative cursor-pointer w-full aspect-video rounded-3xl overflow-hidden border-2 border-white/20 bg-black/30 flex items-center justify-center shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] mb-20 scroll-mt-28"
+          onClick={() => setOpenModal((prev) => !prev)}
         >
-          <div className="absolute inset-0 bg-linear-to-tr from-black/60 via-blue-500/5 to-transparent pointer-events-none z-5" />
-          <video
+          <button className="pointer-events-none w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/50">
+            <Play className="w-8 h-8 fill-current text-white translate-x-0.5" />
+          </button>
+          <div className="absolute inset-0 bg-linear-to-tr from-black/60 via-blue-500/20 to-transparent pointer-events-none z-5" />
+          {/* <video
             controls
             className="w-full h-full object-cover relative z-0"
             playsInline
@@ -262,13 +247,9 @@ export default function SlugPage() {
           >
             <source src="/video.mov" type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
-          <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 z-10 pointer-events-none">
-            <div className="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/50">
-              <Play className="w-8 h-8 fill-current text-white translate-x-0.5" />
-            </div>
-          </div>
-        </div> */}
+          </video> */}
+          <AnimatePresence>{openModal && <Video />}</AnimatePresence>
+        </div>
 
         <div id="games" className="w-full mb-32 scroll-mt-28">
           <div className="flex items-center justify-between mb-8 px-2">
