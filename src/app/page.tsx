@@ -220,7 +220,7 @@ export default function SlugPage() {
         </h1>
 
         <p className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed mb-12">
-          Advanced browser extension for Roblox Jailbreak. Enhance and process
+          Advanced browser extension for Roblox. Enhance and process
           in-game items locally in your
           <span className="text-blue-400 font-semibold px-2">browser!</span>
           <br />
